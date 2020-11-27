@@ -13,6 +13,8 @@ There are many libraries for validation:
 - Zod: Allows you to define the schema once then infer the type from it. Can create derived schemas using `pick` and `omit` commands
 
 Zod has a `.safeParse` method that doesn't throw an exception, but returns a result that is either the parsed object, or an instance of `ZodValidationError`. It does this with a Typescript discriminated union. this is similar to fp-ts's `Either` type, but not exactly the same. 
-So far I have been wrapping this call in a function that converts the result into an Either for compatibilty with fp-ts
+So far I have been wrapping this call in a function that converts the result into an Either for compatibilty with fp-ts.
+
+Usually this validation is strict, meaning validation will fail if there are additional fields on the object in question which aren't in the schema. This means validating something like an Express Request object is difficult, so validate just the `req.body` or similar. We have the same problem with Mongoose database objects, so use the `.toObject()` method.
 
 #typescript #validation #functional-programming
