@@ -9,13 +9,13 @@ function removeProp<T, K extends keyof T>(prop: K, obj T) {
 }
 ```
 
-And could be curried
+To do the curried version is a little more work with generic types, as we don't know type T in advance, so we have to split up the generics, one for the outer function, one for the inner. See this https://github.com/microsoft/TypeScript/issues/14400#issuecomment-339127746
 
 ```typescript
-function removeProp<T, K extends keyof T>(prop: K) {
-  return (obj: T) => {
-    const {[prop]: _, ...rest}
-    return rest
+function removeProp<K extends PropertyKey>(prop: K) {
+  return <T extends {[prop in K]: any}>(obj: T) => {
+    const {[prop]: _, ...rest} = obj;
+    return rest;
   }
 }
 ```
@@ -32,19 +32,4 @@ type Person = {
 const sanitizePerson = removeProp<Person, "passportNumber">("passportNumber")
 
 const sanitizedPerson = sanitizePerson(somePerson)  // -> has type Pick<Person, "name" | "age">
-```
-
-Bit annoying that you have to specify the generic type K though. Not sure how to get around that. If you don't supply it, and just accept parameter `prop: keyof T` then you lose the resulting typing information
-
-Possibly the answer is here https://stackoverflow.com/questions/46100834/can-i-specify-a-value-type-in-typescript-but-still-let-ts-deduce-the-key-type#46101222
-
-Actually, solved by https://github.com/microsoft/TypeScript/issues/14400#issuecomment-339127746
-
-```typescript
-function removeProp<K extends PropertyKey>(prop: K) {
-  return <T extends {[prop in K]: any}>(obj: T) => {
-    const {[prop]: _, ...rest} = obj;
-    return rest;
-  }
-}
 ```
