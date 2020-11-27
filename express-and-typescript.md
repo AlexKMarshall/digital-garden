@@ -38,3 +38,5 @@ This still won't play nicely with ts-node/nodemon so we need to add a `--files` 
 ```
 nodemon -x ts-node --files
 ```
+
+#typescript #express #backend
