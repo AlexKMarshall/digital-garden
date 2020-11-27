@@ -35,3 +35,5 @@ const sanitizedPerson = sanitizePerson(somePerson)  // -> has type Pick<Person, 
 ```
 
 Bit annoying that you have to specify the generic type K though. Not sure how to get around that. If you don't supply it, and just accept parameter `prop: keyof T` then you lose the resulting typing information
+
+Possibly the answer is here https://stackoverflow.com/questions/46100834/can-i-specify-a-value-type-in-typescript-but-still-let-ts-deduce-the-key-type#46101222
