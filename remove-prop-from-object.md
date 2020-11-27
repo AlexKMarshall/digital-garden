@@ -29,7 +29,9 @@ type Person = {
   passportNumber: number
 }
 
-const sanitizePerson = removeProp<Person, "passportNumber">("passportNumber")
+const sanitizePerson = removeProp("passportNumber")
 
 const sanitizedPerson = sanitizePerson(somePerson)  // -> has type Pick<Person, "name" | "age">
 ```
+
+And if you try to pass an object that doesn't have that prop to your partially applied function, then the compiler won't let you.
