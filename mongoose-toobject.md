@@ -7,3 +7,5 @@ It accepts an `options` object as a parameter. Some useful options could be
 - `options.transform = someFunction`: lets you run a function to transform the object, maybe removing props, or other changes
 
 Alternatively, when doing `.find*()` methods, you can chain a `.lean()` method to it that will return plain objects. However, lean doesn't work on mutations, only plain reads.
+
+#mongoose #backend
